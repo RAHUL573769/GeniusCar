@@ -5,12 +5,17 @@ import imag3 from "../../genius-car-resources-main/assets/images/banner/3.jpg";
 import imag4 from "../../genius-car-resources-main/assets/images/banner/4.jpg";
 import imag5 from "../../genius-car-resources-main/assets/images/banner/5.jpg";
 import imag6 from "../../genius-car-resources-main/assets/images/banner/6.jpg";
+import "./Banner.css";
 const Banner = () => {
   return (
     <div>
       <div className="carousel w-full">
         <div id="slide1" className="carousel-item relative w-full">
-          <img src={imag1} className="w-full" alt="" />
+          <div className="carausel-image">
+            {" "}
+            <img src={imag1} className="w-full" alt="" />
+          </div>
+
           <div className="absolute flex justify-end transform -translate-y-1/2 w-2/5 left-5 top-1/2">
             <h1 className="text-5xl font-bold text-white ">
               Affordable Car Services
