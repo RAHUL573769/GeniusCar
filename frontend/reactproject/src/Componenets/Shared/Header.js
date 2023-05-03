@@ -9,7 +9,7 @@ const Header = () => {
       </li>
 
       <li>
-        <Link>Item 3</Link>
+        <Link to="signup">SignUp</Link>
       </li>
     </>
   );
