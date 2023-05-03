@@ -10,7 +10,7 @@ const SignUp = () => {
   const provider = new GoogleAuthProvider();
   const handleSignUp = (e) => {
     e.preventDefault();
-
+    const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
 
@@ -19,13 +19,16 @@ const SignUp = () => {
         // Signed in
         const user = userCredential.user;
         console.log(user);
+
+        saveData(name, user.email)
+          .then((res) => res.json())
+          .then((data) => console.log(data));
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-
-        console.log(errorMessage);
+        console.log(errorCode);
         // ..
       });
   };
@@ -54,6 +57,25 @@ const SignUp = () => {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
+      });
+  };
+
+  const saveData = (name, email) => {
+    const data = {
+      name: name,
+      email: email
+    };
+    const url = "http://localhost:5000/usersdata";
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
       });
   };
   return (

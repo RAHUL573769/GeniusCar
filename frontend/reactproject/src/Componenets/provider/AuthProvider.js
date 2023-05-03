@@ -12,7 +12,7 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
-  const createUser = (email, password) => {
+  const createUser = (auth, email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
