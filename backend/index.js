@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const cors = require("cors");
 const app = express();
 var bodyParser = require("body-parser");
@@ -30,9 +30,57 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const userCollection = client.db("genius_car").collection("users");
+    const serviceCollection = client.db("genius_car").collection("services");
+
+    const orderCollection = client.db("genius_car").collection("orders");
+
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-    // Send a ping to confirm a successful connection
+    // Send a ping to conconst firm a successful connection
+    app.get("/usersdata", async (req, res) => {
+      const query = {};
+      const userData = await userCollection.find(query).toArray();
+      res.send(userData);
+    });
+
+    app.get("/services", async (req, res) => {
+      const query = {};
+      const servicesData = await serviceCollection.find(query).toArray();
+
+      res.send(servicesData);
+    });
+
+    app.get("/services/:id", async (req, res) => {
+      const specificId = req.params.id;
+      const query = { _id: new ObjectId(specificId) };
+      const servicesDataSpecific = await serviceCollection.findOne(query);
+
+      res.send(servicesDataSpecific);
+    });
+
+    app.post("/checkoutData", async (req, res) => {
+      console.log(req.body);
+
+      const serviceId = req.body.service;
+      const serviceName = req.body.serviceName;
+      const price = req.body.price;
+      const customer = req.body.customer;
+      const email = req.body.email;
+      const message = req.body.message;
+      const phone = req.body.phone;
+
+      const data = {
+        serviceId,
+        serviceName,
+        price,
+        customer,
+        email,
+        message,
+        phone
+      };
+      const dataSent = orderCollection.insertOne(data);
+      res.send(dataSent);
+    });
     app.post("/usersdata", (req, res) => {
       const userName = req.body.name;
       const userEmail = req.body.email;

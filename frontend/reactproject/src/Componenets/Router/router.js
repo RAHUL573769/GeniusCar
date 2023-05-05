@@ -1,3 +1,4 @@
+import CheckOut from "../CheckOut/CheckOut";
 import Banner from "../HomePage/Banner";
 import HomePage from "../HomePage/HomePage";
 import Login from "../Login/Login";
@@ -15,7 +16,15 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage></HomePage> },
 
       { path: "/signup", element: <SignUp></SignUp> },
-      { path: "/login", element: <Login></Login> }
+      { path: "/login", element: <Login></Login> },
+      {
+        path: "/checkout/:id",
+        element: <CheckOut></CheckOut>,
+
+        loader: ({ params }) => {
+          return `http://localhost:5000/services/${params.id}`;
+        }
+      }
     ]
   }
 ]);

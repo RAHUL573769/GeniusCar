@@ -51,7 +51,7 @@ const Banner = () => {
     <div>
       <div className="carousel w-full">
         {bannerData.map((banner) => (
-          <BannerIte banner={banner}></BannerIte>
+          <BannerIte key={banner.id} banner={banner}></BannerIte>
         ))}
       </div>
     </div>

@@ -11,6 +11,7 @@ const Login = () => {
     const password = e.target.password.value;
     handleLogin1(email, password);
   };
+
   return (
     <div>
       <div>
