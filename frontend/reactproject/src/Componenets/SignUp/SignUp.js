@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import signup from "../../107800-login-leady.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 
 const SignUp = () => {
   const { auth, createUser, signItWithGoogle } = useContext(AuthContext);
   const provider = new GoogleAuthProvider();
+  const navigate = useNavigate();
+  const { error, setError } = useState("");
   const handleSignUp = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -18,17 +20,17 @@ const SignUp = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
 
         saveData(name, user.email)
           .then((res) => res.json())
           .then((data) => console.log(data));
+        alert("User Created");
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode);
+        alert("User Exists..Please Login");
         // ..
       });
   };
@@ -39,23 +41,16 @@ const SignUp = () => {
 
     signItWithGoogle(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
-        console.log(user);
+
+        navigate("/");
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       })
       .catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
+
         // ...
       });
   };
@@ -116,6 +111,7 @@ const SignUp = () => {
                   name="password"
                   className="input input-bordered"
                 />
+                <p className="text-red-600">{error}</p>
                 <label className="label">
                   Already Have an Account?
                   <Link

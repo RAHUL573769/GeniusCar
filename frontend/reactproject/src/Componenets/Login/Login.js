@@ -1,31 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import login from "../../93385-login (1).gif";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Login = () => {
+  const { handleLogin1 } = useContext(AuthContext);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    handleLogin1(email, password);
+  };
   return (
     <div>
       <div>
         <div className="hero ">
           <div className="hero-content flex-col lg:flex-row-reverse">
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <form className="card-body">
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Name</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="name"
-                    className="input input-bordered"
-                  />
-                </div>
+              <form onSubmit={handleLogin} className="card-body">
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Email</span>
                   </label>
                   <input
                     type="email"
+                    name="email"
                     placeholder="email"
                     className="input input-bordered"
                   />
@@ -37,15 +36,16 @@ const Login = () => {
                   <input
                     type="password"
                     placeholder="password"
+                    name="password"
                     className="input input-bordered"
                   />
                   <label className="label">
-                    Already Have an Account?
+                    New to Genius Car?
                     <Link
-                      to="/login"
+                      to="/signup"
                       className=" text-bold  label-text-alt link link-hover"
                     >
-                      Login
+                      Sign Up?
                     </Link>
                   </label>
                 </div>
