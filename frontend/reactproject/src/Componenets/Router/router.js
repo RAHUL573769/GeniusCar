@@ -3,6 +3,7 @@ import Banner from "../HomePage/Banner";
 import HomePage from "../HomePage/HomePage";
 import Login from "../Login/Login";
 import Orders from "../Orders/Orders";
+import Private from "../PrivateAuth/Private";
 import SignUp from "../SignUp/SignUp";
 
 const { createBrowserRouter } = require("react-router-dom");
@@ -18,7 +19,15 @@ const router = createBrowserRouter([
 
       { path: "/signup", element: <SignUp></SignUp> },
       { path: "/login", element: <Login></Login> },
-      { path: "/orders", element: <Orders></Orders> },
+      {
+        path: "/orders",
+        element: (
+          <Private>
+            {" "}
+            <Orders></Orders>
+          </Private>
+        )
+      },
       {
         path: "/checkout/:id",
         element: <CheckOut></CheckOut>,
