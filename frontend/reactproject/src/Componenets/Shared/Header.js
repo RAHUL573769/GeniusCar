@@ -15,6 +15,9 @@ const Header = () => {
       <li>
         <Link to="/checkout/:id">Check Out</Link>
       </li>
+      <li>
+        <Link to="/orders">Orders</Link>
+      </li>
       {user ? (
         <li>
           <button onClick={logout} to="login">

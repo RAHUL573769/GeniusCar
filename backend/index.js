@@ -58,6 +58,35 @@ async function run() {
       res.send(servicesDataSpecific);
     });
 
+    app.get("/orders", async (req, res) => {
+      let ordersQuery = {
+        email: req.query.email
+      };
+      // console.log(req.query.email);
+      // if (req.query.email) {
+      //   ordersQuery: {
+      //     email: req.query.email;
+      //   }
+      // }
+      const orderData = await orderCollection.find(ordersQuery).toArray();
+      // console.log(orderData);
+      res.send(orderData);
+    });
+    app.get("/orders/:id", async (req, res) => {
+      const specificOrder = req.params.id;
+      const query = { _id: new ObjectId(specificOrder) };
+      const orderDataSpecific = await orderCollection.findOne(query);
+
+      res.send(orderDataSpecific);
+    });
+
+    app.delete("/orders/:id", async (req, res) => {
+      const specificOrder = req.params.id;
+      const query = { _id: new ObjectId(specificOrder) };
+      const orderDataSpecificDelete = await orderCollection.deleteOne(query);
+
+      res.send(orderDataSpecificDelete);
+    });
     app.post("/checkoutData", async (req, res) => {
       console.log(req.body);
 
