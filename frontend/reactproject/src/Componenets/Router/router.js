@@ -3,8 +3,9 @@ import Banner from "../HomePage/Banner";
 import HomePage from "../HomePage/HomePage";
 import Login from "../Login/Login";
 import Orders from "../Orders/Orders";
-import Private from "../PrivateAuth/Private";
+
 import SignUp from "../SignUp/SignUp";
+import Private from "./../PrivateAuth/Private";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../Layouts/Main");
@@ -30,7 +31,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/checkout/:id",
-        element: <CheckOut></CheckOut>,
+        element: (
+          <Private>
+            {" "}
+            <CheckOut></CheckOut>
+          </Private>
+        ),
 
         loader: ({ params }) => {
           return `http://localhost:5000/services/${params.id}`;

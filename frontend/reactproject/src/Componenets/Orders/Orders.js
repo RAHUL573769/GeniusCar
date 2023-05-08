@@ -29,6 +29,16 @@ const Orders = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
+
+          if (data.deletedCount > 0) {
+            return (
+              <progress
+                className="progress progress-secondary w-56"
+                value="100"
+                max="100"
+              ></progress>
+            );
+          }
         });
     }
   };

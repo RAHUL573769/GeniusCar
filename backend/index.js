@@ -1,4 +1,5 @@
 const express = require("express");
+var jwt = require("jsonwebtoken");
 
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const cors = require("cors");
@@ -42,7 +43,14 @@ async function run() {
       const userData = await userCollection.find(query).toArray();
       res.send(userData);
     });
-
+    app.post("/jwt", (req, res) => {
+      const user = req.body;
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1hr"
+      });
+      console.log(token);
+      res.send({ token });
+    });
     app.get("/services", async (req, res) => {
       const query = {};
       const servicesData = await serviceCollection.find(query).toArray();
@@ -107,7 +115,7 @@ async function run() {
         message,
         phone
       };
-      const dataSent = orderCollection.insertOne(data);
+      const dataSent = await orderCollection.insertOne(data);
       res.send(dataSent);
     });
     app.post("/usersdata", (req, res) => {
