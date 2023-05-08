@@ -9,7 +9,7 @@ const Orders = () => {
   const { data: order = [] } = useQuery({
     queryKey: ["orders", user?.email],
     queryFn: async () => {
-      const url = `http://localhost:5000/orders?email=${user?.email}`;
+      const url = `https://backend-rudrarahul77-gmailcom.vercel.app/orders?email=${user?.email}`;
 
       const res = await fetch(url);
       const data = await res.json();
@@ -21,7 +21,7 @@ const Orders = () => {
     // console.log(id);
     const proceed = window.confirm("Are you Sure You Want To Delete");
     if (proceed) {
-      const url = `http://localhost:5000/orders/${id}`;
+      const url = `https://backend-rudrarahul77-gmailcom.vercel.app/orders/${id}`;
 
       fetch(url, {
         method: "DELETE"

@@ -18,7 +18,7 @@ const Login = () => {
     const currentUser = {
       email: email
     };
-    fetch("http://localhost:5000/jwt", {
+    fetch("https://backend-rudrarahul77-gmailcom.vercel.app/jwt", {
       method: "POST",
       headers: {
         "content-type": "application/json"

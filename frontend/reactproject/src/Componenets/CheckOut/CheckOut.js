@@ -7,7 +7,7 @@ const CheckOut = () => {
   const { user } = useContext(AuthContext);
   const { id } = useParams();
   // const { title } = useLoaderData();
-  const url = `http://localhost:5000/services/${id}`;
+  const url = `https://backend-rudrarahul77-gmailcom.vercel.app/services/${id}`;
 
   const { data: checkout = [] } = useQuery({
     queryKey: ["checkout"],
@@ -38,7 +38,7 @@ const CheckOut = () => {
       phone: phone
     };
 
-    const url = "http://localhost:5000/checkoutData";
+    const url = "https://backend-rudrarahul77-gmailcom.vercel.app/checkoutData";
     fetch(url, {
       method: "POST",
       headers: {

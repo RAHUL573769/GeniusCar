@@ -60,7 +60,7 @@ const SignUp = () => {
       name: name,
       email: email
     };
-    const url = "http://localhost:5000/usersdata";
+    const url = "https://backend-rudrarahul77-gmailcom.vercel.app/usersdata";
     fetch(url, {
       method: "POST",
       headers: {

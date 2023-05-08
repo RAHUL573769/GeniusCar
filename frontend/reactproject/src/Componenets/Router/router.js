@@ -39,7 +39,7 @@ const router = createBrowserRouter([
         ),
 
         loader: ({ params }) => {
-          return `http://localhost:5000/services/${params.id}`;
+          return `https://backend-rudrarahul77-gmailcom.vercel.app/services/${params.id}`;
         }
       }
     ]
